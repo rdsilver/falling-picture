@@ -6,3 +6,24 @@ body {
   align-items: center;
   justify-content: center
 }
+
+
+
+canvas {
+  cursor: pointer;
+  border: 1px solid white;
+}
+
+.frame {
+  position: relative;
+}
+
+.frame.noClick::before {
+  content: 'Click Me';
+  position: absolute;
+  color: white;
+  font-size: 30px;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
