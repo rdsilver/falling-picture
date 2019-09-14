@@ -6,34 +6,43 @@ function preload() {
 
 function setup() {
   pixelDensity(1);
-  canvas = createCanvas(400, 700);
+  canvas = createCanvas(500, 800);
   canvas.parent('sketch');
   imageMode(CENTER);
   angleMode(DEGREES);
 }
 
 function draw() {
+  loadPixels();
   dropPixels();
+  dropPixels();
+  dropPixels();
+  dropPixels();
+  updatePixels();
 }
 
 function dropPixels() {
-  loadPixels();
   for(let x=0;x<width;x++) {
     for(let y=height-1;y>=0;y--) {
       let index = (x+y*width)*4;
       let indexBelow = (x+(y+1)*width)*4;
+
       if (y+1 < height ) {
-        if (!pixels[indexBelow+3]) {
-          let indexColor = [pixels[index], pixels[index+1], pixels[index+2] ,pixels[index+3]]
-          let indexBelowColor = [pixels[indexBelow], pixels[indexBelow+1], pixels[indexBelow+2] ,pixels[indexBelow+3]]
-          setPixel(indexBelow, indexColor);
-          setPixel(index, indexBelowColor);
+        if (pixels[indexBelow] < pixels[index]) {
+          swapPixels(indexBelow, index);
         }
       }
     }
   }
-  updatePixels();
 }
+
+function swapPixels(firstPixelIndex, secondPixelIndex) {
+  let firstPixelColor = [pixels[firstPixelIndex], pixels[firstPixelIndex+1], pixels[firstPixelIndex+2], pixels[firstPixelIndex+3]];
+  let secondPixelColor = [pixels[secondPixelIndex], pixels[secondPixelIndex+1], pixels[secondPixelIndex+2] ,pixels[secondPixelIndex+3]];
+  setPixel(firstPixelIndex, secondPixelColor);
+  setPixel(secondPixelIndex, firstPixelColor);
+}
+
 
 function setPixel(index, color) {
   pixels[index] = color[0];

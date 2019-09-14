@@ -7,8 +7,6 @@ body {
   justify-content: center
 }
 
-
-
 canvas {
   cursor: pointer;
   border: 1px solid white;
